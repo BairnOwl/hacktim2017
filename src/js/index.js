@@ -1,12 +1,14 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import { Router, Route } from 'react-router';
 
-class App extends React.Component {
-  render () {
-    return (<p> Hello React!</p>);
-  }
-}
+import Layout from './pages/Layout';
 
 const app = document.getElementById('app');
 
-render(<App/>, app);
+ReactDOM.render(
+	<Router>
+	    <Route path="/" component={Layout}>
+	    </Route>
+  	</Router>,
+app);
