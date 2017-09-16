@@ -3,9 +3,13 @@ var express = require('express');
 var app = express();
 var server = http.createServer(app);
 
-app.use(express.static(__dirname + '/src'));
+var engines = require('consolidate');
 
-app.get('/', function(request, response){
+app.use(express.static(__dirname + '/views'));
+app.engine('html', engines.mustache);
+app.set('view engine', 'html');
+
+app.get('*', function(request, response){
     response.render('index.html');
 });
 

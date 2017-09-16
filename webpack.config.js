@@ -21,7 +21,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  context: path.join(__dirname, "src"),
+  context: path.join(__dirname, "views"),
   devtool: debug ? "inline-sourcemap" : null,
   entry: "./js/index.js",
   module: {
@@ -38,7 +38,7 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + "/src/",
+    path: __dirname + "/views/",
     filename: "index.min.js"
   },
   plugins: debug ? [] : [
