@@ -13,6 +13,20 @@ export default class Layout extends React.Component {
 
 	capture = () => {
     	const imageSrc = this.webcam.getScreenshot();
+
+      console.log(imageSrc);
+
+      fetch('http://192.168.43.79:8080/image', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'mode': 'no-cors'
+        },
+        body: JSON.stringify({
+          image: imageSrc
+        })
+      });
   	};
 
 	setRef = (webcam) => {
