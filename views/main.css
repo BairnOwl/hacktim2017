@@ -1,3 +1,37 @@
-h1 {
-  color: red;
+@media only screen and (max-width: 600px) {
+	body {
+		text-align: center;
+		margin: 0px;
+	}
+    h1 {
+  		color: black;
+  		top: 10px;
+  		position: relative;
+	}
+	.foodItem {
+		width: 100vw;
+		height: 50px;
+		border-width: 0px 0px 0.2px 0px;
+		border-style: solid;
+		color: black;
+		border-color: #99bb92;
+		position: relative;
+	}
+	.foodList {
+		height: 60vh;
+		width: 100vw;
+	}
+	.itemName {
+		left: 20px;
+		position: absolute;
+		top: 50%;
+		color: black;
+		transform: translateY(-50%);
+	}
+	.expDate {
+		right: 20px;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
 }
