@@ -12,6 +12,12 @@ app.use(express.static(__dirname + '/views'));
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
 app.get('*', function(request, response){
     response.render('index.html');
 });
@@ -19,23 +25,26 @@ app.get('*', function(request, response){
 app.post('/image', function(req, res) {
 	var image = req.body.image;
 
-	console.log(image);
+	// console.log(image);
 
 	var spawn = require('child_process').spawn,
-    py = spawn('python', ['compute_input.py']),
-    data = [1,2,3,4,5,6,7,8,9],
-    dataString = '';
+    py = spawn('python3', ['vision.py']);
+    // data = [1,2,3,4,5,6,7,8,9],
+    // dataString = '';
 
     py.stdout.on('data', function(data){
-	  dataString += data.toString();
+	  console.log(data.toString());
+
+	  io.emit('addFood', data.toString());
 	});
+
 
 	/*Once the stream is done (on 'end') we want to simply log the received data to the console.*/
 	py.stdout.on('end', function(){
-	  console.log('Sum of numbers=',dataString);
+	  console.log('end');
 	});
 
-	py.stdin.write(JSON.stringify(data));
+	py.stdin.write(JSON.stringify(image));
 
 	py.stdin.end();
 });

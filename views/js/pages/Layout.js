@@ -16,7 +16,7 @@ export default class Layout extends React.Component {
 
       console.log(imageSrc);
 
-      fetch('http://192.168.43.79:8080/image', {
+      fetch('http://10.182.8.75:8080/image', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
