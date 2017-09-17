@@ -3,20 +3,15 @@ var express = require('express');
 var app = express();
 var server = http.createServer(app);
 
-var engines = require('consolidate');
+var engine = require('consolidate');
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/views'));
-app.engine('html', engines.mustache);
+app.engine('html', engine.mustache);
 app.set('view engine', 'html');
 
-var io = require('socket.io')(http);
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-});
 
 app.get('*', function(request, response){
     response.render('index.html');
@@ -51,4 +46,10 @@ app.post('/image', function(req, res) {
 
 server.listen(8080, function(){
     console.log('- Server listening on port 8080');
+});
+
+var io = require('socket.io').listen(server);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
 });
