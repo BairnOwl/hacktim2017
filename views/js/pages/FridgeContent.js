@@ -24,7 +24,8 @@ export default class FridgeContent extends React.Component {
 		this.state = {
 			foodItems: [], 
 			socket: '', 
-		} // this.addFood = this.addFood.bind(this);
+		}
+		 // this.addFood = this.addFood.bind(this);
 		// var socket = io.connect();
 	}
 
@@ -32,7 +33,6 @@ export default class FridgeContent extends React.Component {
 		const socket = openSocket('http://localhost:8080');
 
 		const addFoodHandler = (name) => {
-			console.log(name);
 	    	var oldList = this.state.foodItems;
 			var date = new Date();
 			oldList.push(
@@ -131,10 +131,10 @@ export default class FridgeContent extends React.Component {
 
 	render() {
 
-		var inputs = [{name: 'Apple', exp: '3 days'}, {name: 'Pear', exp: '1 day'}];
+		//var inputs = [{name: 'Apple', exp: '3 days'}, {name: 'Pear', exp: '1 day'}];
 
-		const foodItemList = inputs.map((i) => {
-					return <div class="foodItem">
+		const foodItemList = this.state.foodItems.map((i) => {
+					return <div class="foodItem" key={Array.prototype.indexOf(i)}>
 						<div class="itemName">
 							{i["name"]}
 						</div>
