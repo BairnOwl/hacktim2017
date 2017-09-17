@@ -133,13 +133,13 @@ export default class FridgeContent extends React.Component {
 
 		//var inputs = [{name: 'Apple', exp: '3 days'}, {name: 'Pear', exp: '1 day'}];
 
-		const foodItemList = this.state.foodItems.map((i) => {
-					return <div class="foodItem" key={Array.prototype.indexOf(i)}>
+		const foodItemList = this.state.foodItems.map((val, i) => {
+					return <div class="foodItem" key={i}>
 						<div class="itemName">
-							{i["name"]}
+							{val["name"]}
 						</div>
 						<div class="expDate">
-							{i['exp']}
+							{val['exp']}
 						</div>
 						</div>;}
 		);
