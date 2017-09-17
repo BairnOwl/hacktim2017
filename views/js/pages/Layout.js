@@ -37,17 +37,19 @@ export default class Layout extends React.Component {
 		return (
 			<div>
 			<h1>Webcam</h1>
-			<Link to="/home">Home</Link>
         <Webcam
           audio={false}
-          height={350}
+          height={300}
           ref={this.setRef}
           screenshotFormat="image/jpeg"
           width={350}
         />
-        <button onClick={this.capture}>Check in</button>
-        <button onClick={this.capture}>Check out</button>
-      </div>
+        <div class="buttons">
+          <button class="camera-button" onClick={this.capture}>Check in</button>
+          <button  class="camera-button" onClick={this.capture}>Check out</button>
+        </div>
+        <Link to="/home">Home</Link>
+        </div>
 		);
 	}
 }
