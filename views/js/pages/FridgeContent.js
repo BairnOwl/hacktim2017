@@ -6,33 +6,48 @@ import openSocket from 'socket.io-client';
 
 export default class FridgeContent extends React.Component {
 
+	// addFood(itemName) {
+	// 	var oldList = this.state.foodItems;
+	// 	var date = new Date();
+	// 	oldList.push(
+	// 		{name: itemName,
+	// 		 exp: (date.getMonth() + 1).toString() + '/' + date.getDate().toString()
+	// 		});
+	// 	this.setState ({
+	// 		foodItems: oldList
+	// 	});
+	// }
+
+
 	constructor() {
 		super();
 		this.state = {
-			foodItems: [],
-			socket: '',
-		}
-		this.addFood = this.addFood.bind(this);
+			foodItems: [], 
+			socket: '', 
+		} // this.addFood = this.addFood.bind(this);
 		// var socket = io.connect();
-		const socket = openSocket('http://localhost:8080');
-
-		socket.on('addFood', function(name){
-	    	this.addFood(name);
-	    });
-		this.setState ({
-			socket: socket
-		});
 	}
 
-	addFood(itemName) {
-		var oldList = this.state.foodItems;
-		var date = new Date();
-		oldList.push(
-			{name: itemName,
-			 exp: (date.getMonth() + 1).toString() + '/' + date.getDate().toString()
+	componentWillMount() {
+		const socket = openSocket('http://localhost:8080');
+
+		const addFoodHandler = (name) => {
+			console.log(name);
+	    	var oldList = this.state.foodItems;
+			var date = new Date();
+			oldList.push(
+				{name: name,
+				 exp: (date.getMonth() + 1).toString() + '/' + date.getDate().toString()
+				});
+			this.setState ({
+				foodItems: oldList
 			});
+		};
+
+		socket.on('addFood', addFoodHandler);
+
 		this.setState ({
-			foodItems: oldList
+			socket: socket
 		});
 	}
 

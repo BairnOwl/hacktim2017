@@ -40,13 +40,15 @@ def detect_labels():
     labels = response.label_annotations
 
    
-    db = {"potato chips", "coca cola", "apple", "yogurt", "hot sauce", "cookie"};
+    db = ["potato chip", "red bull", "cookies", "cookies and crackers",  "apple", "water"];
 
     for label in labels:
-        print(label.score)
-        print(label.description)
+        # print(label.score)
 
-    
+        if (label.description in db):
+            print(label.description)
+
+
 
 
 
