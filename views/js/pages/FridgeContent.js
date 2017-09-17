@@ -6,7 +6,30 @@ export default class FridgeContent extends React.Component {
 
 	constructor() {
 		super();
-		//this.getFoodItem = this.getFoodItem.bind(this, name);
+		this.state = {
+			foodItems: [],
+			socket: None,
+		}
+		this.addFood = this.addFoodItem.bind(this);
+		var socket = io.connect();
+		socket.on('addFood', function(name){
+	    	this.addFood(name);
+	    });
+		this.setState ({
+			socket: io.connect()
+		});
+	}
+
+	addFood(itemName) {
+		var oldList = this.state.foodItems;
+		var date = new Date();
+		oldList.push(
+			{name: itemName,
+			 exp: (date.getMonth() + 1).toString() + '/' + date.getDate().toString()
+			});
+		this.setState ({
+			foodItems: oldList
+		});
 	}
 
 	// buildPieChart() {
@@ -101,12 +124,6 @@ export default class FridgeContent extends React.Component {
 						</div>
 						</div>;}
 		);
-
-		// var foodItem = <div class="foodItem">
-		// 				<div class="itemName">
-		// 					Apple Pie
-		// 				</div>
-		// 			<div class="expDate">3 Days</div></div>;
 
 		return (
 			<div>
