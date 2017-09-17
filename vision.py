@@ -27,6 +27,8 @@ def detect_labels(path):
     for label in labels:
         print(label.description)
 
+
+
 # [START def_detect_labels_uri]
 def detect_labels_uri(uri):
     """Detects labels in the file located in Google Cloud Storage or on the
