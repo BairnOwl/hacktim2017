@@ -7,30 +7,46 @@
 
 import argparse
 import io
+import sys
+import base64
 
 from google.cloud import vision
 from google.cloud.vision import types
 
-def detect_labels(path):
+def detect_labels():
     """Detects labels in the file."""
     client = vision.ImageAnnotatorClient()
 
-    with io.open(path, 'rb') as image_file:
-        content = image_file.read()
+    # with io.open(path, 'rb') as image_file:
+    #     content = image_file.read()
+
+    try:
+        raw = sys.stdin.readline()
+        content = base64.b64decode(raw[24:])
+    except Exception as e:
+        print(e)
 
     image = types.Image(content=content)
 
-    response = client.label_detection(image=image)
-    labels = response.label_annotations
-    print('Labels:')
+    with open('img.png', 'wb') as f:
+        f.write(content)
 
+
+    try:
+        response = client.label_detection(image=image)
+    except Exception as e:
+        print(e)
+
+    labels = response.label_annotations
+
+   
     db = {"potato chips", "coca cola", "apple", "yogurt", "hot sauce", "cookie"};
 
     for label in labels:
         print(label.score)
         print(label.description)
-        if (label.description in db):
-            print(label.description + "!!!!")
+
+    
 
 
 
@@ -60,20 +76,22 @@ def run_uri(args):
         detect_labels_uri(args.uri)
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter)
-    subparsers = parser.add_subparsers(dest='command')
+    # parser = argparse.ArgumentParser(
+    #     description=__doc__,
+    #     formatter_class=argparse.RawDescriptionHelpFormatter)
+    # subparsers = parser.add_subparsers(dest='command')
 
-    labels_file_parser = subparsers.add_parser(
-        'labels-uri', help=detect_labels_uri.__doc__)
-    labels_file_parser = subparsers.add_parser(
-        'labels', help=detect_labels.__doc__)
-    labels_file_parser.add_argument('uri')
+    # labels_file_parser = subparsers.add_parser(
+    #     'labels-uri', help=detect_labels_uri.__doc__)
+    # labels_file_parser = subparsers.add_parser(
+    #     'labels', help=detect_labels.__doc__)
+    # labels_file_parser.add_argument('uri')
 
-    args = parser.parse_args()
+    # args = parser.parse_args()
 
-    if ('uri' in args.command):
-        run_uri(args)
-    else:
-        run_local(args)
+    # if ('uri' in args.command):
+    #     run_uri(args)
+    # else:
+    #     run_local(args)
+
+    detect_labels()
