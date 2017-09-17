@@ -2,21 +2,25 @@ import React from 'react';
 import Webcam from 'react-webcam';
 // var PieChart = require('react-d3-basic').PieChart;
 
+import openSocket from 'socket.io-client';
+
 export default class FridgeContent extends React.Component {
 
 	constructor() {
 		super();
 		this.state = {
 			foodItems: [],
-			socket: None,
+			socket: '',
 		}
-		this.addFood = this.addFoodItem.bind(this);
-		var socket = io.connect();
+		this.addFood = this.addFood.bind(this);
+		// var socket = io.connect();
+		const socket = openSocket('http://localhost:8080');
+
 		socket.on('addFood', function(name){
 	    	this.addFood(name);
 	    });
 		this.setState ({
-			socket: io.connect()
+			socket: socket
 		});
 	}
 
