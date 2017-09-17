@@ -24,8 +24,13 @@ def detect_labels(path):
     labels = response.label_annotations
     print('Labels:')
 
+    db = {"potato chips", "coca cola", "apple", "yogurt", "hot sauce", "cookie"};
+
     for label in labels:
+        print(label.score)
         print(label.description)
+        if (label.description in db):
+            print(label.description + "!!!!")
 
 
 
@@ -43,6 +48,7 @@ def detect_labels_uri(uri):
 
     for label in labels:
         print(label.description)
+
 # [END def_detect_labels_uri]
 
 def run_local(args):
