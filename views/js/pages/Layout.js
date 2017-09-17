@@ -45,7 +45,8 @@ export default class Layout extends React.Component {
           screenshotFormat="image/jpeg"
           width={350}
         />
-        <button onClick={this.capture}>Capture photo</button>
+        <button onClick={this.capture}>Check in</button>
+        <button onClick={this.capture}>Check out</button>
       </div>
 		);
 	}
