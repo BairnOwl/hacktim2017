@@ -1,4 +1,5 @@
 node_modules
 package-lock.json
 */*.min.js
+views/popper.js-1.12.5
 views/index.min.js
